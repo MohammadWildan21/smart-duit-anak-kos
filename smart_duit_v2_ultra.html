@@ -1,0 +1,401 @@
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --p1:#8B5CF6;--p2:#6366F1;--p3:#06B6D4;
+  --g1:linear-gradient(135deg,#8B5CF6,#6366F1,#06B6D4);
+  --g2:linear-gradient(135deg,#F472B6,#EC4899,#8B5CF6);
+  --g3:linear-gradient(135deg,#10B981,#06B6D4);
+  --g4:linear-gradient(135deg,#F59E0B,#EF4444);
+  --card-bg:rgba(255,255,255,0.07);
+  --text:#fff;--text2:rgba(255,255,255,0.65);--text3:rgba(255,255,255,0.4);
+}
+.app{background:linear-gradient(160deg,#0F0A1E 0%,#160D2E 40%,#0D1B2A 100%);min-height:700px;padding:1.2rem;font-family:'Poppins',sans-serif}
+.tab-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:1.2rem}
+.tab{padding:7px 14px;border-radius:20px;font-size:11px;font-weight:600;cursor:pointer;border:1px solid rgba(255,255,255,0.12);color:rgba(255,255,255,0.5);background:rgba(255,255,255,0.05);transition:all 0.2s;letter-spacing:0.2px}
+.tab.on{background:var(--g1);color:#fff;border-color:transparent;box-shadow:0 4px 15px rgba(139,92,246,0.4)}
+.phone-wrap{display:flex;justify-content:center}
+.phone{width:340px;min-height:680px;border-radius:36px;border:1.5px solid rgba(255,255,255,0.12);overflow:hidden;position:relative;padding-bottom:68px;background:linear-gradient(160deg,#13102A,#0E1527)}
+.scr{display:none;animation:fadeIn 0.25s ease}
+.scr.on{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+/* Status bar */
+.sb{padding:14px 20px 4px;display:flex;justify-content:space-between;font-size:11px;color:var(--text2)}
+.sb b{color:#fff;font-weight:700}
+
+/* === DASHBOARD === */
+.dash-header{padding:4px 18px 10px;display:flex;justify-content:space-between;align-items:center}
+.dh-left .hello{font-size:11px;color:var(--text3)}
+.dh-left .name{font-size:17px;font-weight:800;color:#fff}
+.notif-btn{width:36px;height:36px;border-radius:12px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;font-size:15px;cursor:pointer;position:relative}
+.notif-dot{position:absolute;top:6px;right:6px;width:7px;height:7px;border-radius:50%;background:#F472B6;border:1.5px solid #13102A}
+
+.bal-card{margin:0 14px 14px;border-radius:22px;padding:20px;background:var(--g1);position:relative;overflow:hidden}
+.bal-card::before{content:'';position:absolute;top:-40px;right:-40px;width:130px;height:130px;border-radius:50%;background:rgba(255,255,255,0.08)}
+.bal-card::after{content:'';position:absolute;bottom:-50px;left:-20px;width:140px;height:140px;border-radius:50%;background:rgba(255,255,255,0.05)}
+.bc-top{display:flex;justify-content:space-between;align-items:flex-start;position:relative}
+.bc-label{font-size:10px;color:rgba(255,255,255,0.7);margin-bottom:3px;letter-spacing:0.3px;text-transform:uppercase}
+.bc-amount{font-size:30px;font-weight:800;color:#fff;letter-spacing:-0.5px;line-height:1}
+.bc-sub{font-size:10px;color:rgba(255,255,255,0.6);margin-top:3px}
+.bc-eye{width:30px;height:30px;border-radius:9px;background:rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center;font-size:13px;cursor:pointer}
+.ai-chip{margin-top:14px;background:rgba(0,0,0,0.2);border-radius:12px;padding:9px 12px;display:flex;align-items:center;gap:8px;border:1px solid rgba(255,255,255,0.1);position:relative}
+.ai-avatar{width:26px;height:26px;border-radius:8px;background:rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0}
+.ai-content .ai-tag{font-size:8px;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:0.5px}
+.ai-content .ai-msg{font-size:10px;color:#fff;font-weight:500;line-height:1.4}
+
+.pill-row{display:flex;gap:8px;margin:0 14px 14px}
+.pill{flex:1;border-radius:16px;padding:12px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.05);backdrop-filter:blur(10px)}
+.pill-ico{font-size:16px;margin-bottom:4px}
+.pill-val{font-size:16px;font-weight:700;color:#fff}
+.pill-lbl{font-size:9px;color:var(--text3);margin-top:1px}
+.pill-badge{font-size:8px;padding:2px 6px;border-radius:6px;margin-top:4px;display:inline-block;font-weight:600}
+.pb-red{background:rgba(239,68,68,0.2);color:#FCA5A5}
+.pb-green{background:rgba(16,185,129,0.2);color:#6EE7B7}
+.pb-blue{background:rgba(99,102,241,0.2);color:#A5B4FC}
+
+.quick-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:0 14px 14px}
+.qg-item{display:flex;flex-direction:column;align-items:center;gap:5px;cursor:pointer}
+.qg-ico{width:50px;height:50px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:19px;border:1px solid rgba(255,255,255,0.08);transition:transform 0.15s}
+.qg-ico:hover{transform:scale(1.08)}
+.qg-ico:active{transform:scale(0.93)}
+.qg-lbl{font-size:9px;color:var(--text2);text-align:center;font-weight:600}
+.qi1{background:linear-gradient(135deg,rgba(139,92,246,0.3),rgba(99,102,241,0.3))}
+.qi2{background:linear-gradient(135deg,rgba(6,182,212,0.3),rgba(16,185,129,0.3))}
+.qi3{background:linear-gradient(135deg,rgba(244,114,182,0.3),rgba(236,72,153,0.3))}
+.qi4{background:linear-gradient(135deg,rgba(245,158,11,0.3),rgba(239,68,68,0.3))}
+
+.sec-hd{padding:0 18px 8px;display:flex;justify-content:space-between;align-items:center}
+.sec-title{font-size:13px;font-weight:700;color:#fff}
+.sec-link{font-size:10px;color:#A78BFA;font-weight:600;cursor:pointer}
+.tx-list{padding:0 14px}
+.tx-item{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:14px;margin-bottom:6px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);cursor:pointer;transition:all 0.15s}
+.tx-item:hover{background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.12)}
+.tx-ico{width:36px;height:36px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
+.tx-info{flex:1}
+.tx-name{font-size:12px;font-weight:600;color:#fff}
+.tx-meta{font-size:10px;color:var(--text3);margin-top:1px}
+.tx-amt{font-size:12px;font-weight:700}
+.amt-m{color:#F87171}
+.amt-p{color:#34D399}
+
+/* === ADD EXPENSE === */
+.add-header{padding:12px 18px 6px;display:flex;align-items:center;gap:10px}
+.back-btn{width:34px;height:34px;border-radius:11px;border:1px solid rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;font-size:14px;cursor:pointer;color:#fff;background:rgba(255,255,255,0.05);transition:all 0.15s}
+.back-btn:hover{background:rgba(255,255,255,0.1)}
+.add-title{font-size:15px;font-weight:700;color:#fff}
+
+.amount-hero{text-align:center;padding:16px 18px 10px}
+.ah-label{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px}
+.ah-amount{font-size:42px;font-weight:800;color:#fff;letter-spacing:-1.5px}
+.ah-cursor{display:inline-block;width:2px;height:38px;background:#8B5CF6;border-radius:2px;vertical-align:middle;animation:blink 1s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+
+.cat-scroll{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;padding:0 14px 10px}
+.cat-btn{display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 4px;border-radius:14px;border:1.5px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.04);cursor:pointer;transition:all 0.2s}
+.cat-btn:hover{background:rgba(255,255,255,0.08)}
+.cat-btn.sel{border-color:#8B5CF6;background:rgba(139,92,246,0.2)}
+.cat-e{font-size:20px}
+.cat-n{font-size:9px;font-weight:600;color:var(--text2);text-align:center}
+.cat-btn.sel .cat-n{color:#C4B5FD}
+
+.field-wrap{padding:0 14px 8px}
+.field-label{font-size:10px;color:var(--text3);font-weight:600;text-transform:uppercase;letter-spacing:0.3px;margin-bottom:5px}
+.custom-input{width:100%;padding:11px 14px;border-radius:12px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.06);color:#fff;font-family:inherit;font-size:12px;font-weight:500;outline:none;transition:border-color 0.2s}
+.custom-input::placeholder{color:var(--text3)}
+.custom-input:focus{border-color:#8B5CF6}
+
+.save-btn{margin:8px 14px;width:calc(100% - 28px);padding:14px;border-radius:16px;border:none;background:var(--g1);color:#fff;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer;transition:transform 0.15s,box-shadow 0.2s;box-shadow:0 6px 20px rgba(139,92,246,0.35)}
+.save-btn:hover{transform:translateY(-1px);box-shadow:0 10px 28px rgba(139,92,246,0.5)}
+.save-btn:active{transform:scale(0.97)}
+
+.toast{margin:6px 14px;padding:11px 14px;background:linear-gradient(135deg,rgba(16,185,129,0.25),rgba(6,182,212,0.25));border:1px solid rgba(16,185,129,0.3);border-radius:12px;font-size:11px;font-weight:600;color:#6EE7B7;text-align:center;display:none;animation:slideUp 0.3s ease}
+@keyframes slideUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+/* === INSIGHT === */
+.ins-header{padding:6px 18px 12px}
+.ins-title{font-size:18px;font-weight:800;color:#fff}
+.ins-sub{font-size:11px;color:var(--text3);margin-top:2px}
+
+.period-toggle{display:flex;gap:4px;margin:0 14px 12px;background:rgba(255,255,255,0.05);border-radius:12px;padding:4px}
+.pt-btn{flex:1;padding:6px;border-radius:9px;font-size:10px;font-weight:600;color:var(--text3);cursor:pointer;text-align:center;transition:all 0.2s}
+.pt-btn.on{background:rgba(139,92,246,0.3);color:#C4B5FD}
+
+.chart-card{margin:0 14px 12px;border-radius:18px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.04);padding:14px}
+.cc-title{font-size:12px;font-weight:700;color:#fff;margin-bottom:12px}
+.bar-viz{display:flex;align-items:flex-end;gap:5px;height:90px}
+.bv-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;height:100%}
+.bv-bar{width:100%;border-radius:6px 6px 0 0;transition:height 0.5s ease;cursor:pointer}
+.bv-bar:hover{filter:brightness(1.2)}
+.bv-lbl{font-size:8px;color:var(--text3)}
+.bv-amt{font-size:7px;color:var(--text3);margin-bottom:2px}
+
+.cat-breakdown{margin:0 14px 12px}
+.cbd-item{display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:12px;background:rgba(255,255,255,0.04);margin-bottom:5px;border:1px solid rgba(255,255,255,0.05)}
+.cbd-ico{width:30px;height:30px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
+.cbd-name{font-size:11px;font-weight:600;color:#fff;flex:1}
+.cbd-bar-wrap{width:60px;height:5px;border-radius:100px;background:rgba(255,255,255,0.1);overflow:hidden}
+.cbd-fill{height:100%;border-radius:100px}
+.cbd-amt{font-size:10px;font-weight:700;color:var(--text2);min-width:42px;text-align:right}
+
+.ai-insight-card{margin:0 14px 14px;border-radius:16px;padding:14px;background:linear-gradient(135deg,rgba(139,92,246,0.15),rgba(6,182,212,0.1));border:1px solid rgba(139,92,246,0.25)}
+.aic-head{display:flex;align-items:center;gap:7px;margin-bottom:7px}
+.aic-ico{width:26px;height:26px;border-radius:8px;background:rgba(139,92,246,0.3);display:flex;align-items:center;justify-content:center;font-size:12px}
+.aic-lbl{font-size:10px;font-weight:700;color:#A78BFA;text-transform:uppercase;letter-spacing:0.3px}
+.aic-msg{font-size:11px;color:rgba(255,255,255,0.85);line-height:1.6;font-weight:500}
+
+/* === SAVINGS === */
+.sav-header{padding:6px 18px 12px}
+.total-saved{margin:0 14px 12px;border-radius:20px;padding:18px;background:var(--g2);position:relative;overflow:hidden}
+.ts-lbl{font-size:10px;color:rgba(255,255,255,0.7);text-transform:uppercase;letter-spacing:0.3px}
+.ts-num{font-size:28px;font-weight:800;color:#fff;margin:3px 0}
+.ts-sub{font-size:10px;color:rgba(255,255,255,0.65)}
+
+.goal-card{margin:0 14px 8px;border-radius:18px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.04);padding:14px;cursor:pointer;transition:all 0.2s}
+.goal-card:hover{background:rgba(255,255,255,0.07);border-color:rgba(255,255,255,0.15)}
+.gc-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px}
+.gc-left .gc-name{font-size:13px;font-weight:700;color:#fff}
+.gc-left .gc-amt{font-size:10px;color:var(--text3);margin-top:2px}
+.gc-emoji{font-size:26px}
+.gc-pbar{height:8px;border-radius:100px;background:rgba(255,255,255,0.1);overflow:hidden;margin-bottom:6px}
+.gc-fill{height:100%;border-radius:100px;transition:width 0.8s ease}
+.gc-foot{display:flex;justify-content:space-between;font-size:9px;color:var(--text3)}
+.gc-pct{font-weight:700}
+
+.motiv-card{margin:0 14px 12px;border-radius:16px;padding:13px;background:linear-gradient(135deg,rgba(16,185,129,0.12),rgba(6,182,212,0.12));border:1px solid rgba(16,185,129,0.2);display:flex;gap:10px;align-items:flex-start}
+.mc-ico{font-size:22px;flex-shrink:0}
+.mc-txt{font-size:11px;color:rgba(255,255,255,0.8);font-weight:500;line-height:1.6}
+
+.add-goal-btn{margin:4px 14px;width:calc(100% - 28px);padding:13px;border-radius:15px;border:1.5px dashed rgba(139,92,246,0.4);background:rgba(139,92,246,0.06);color:#A78BFA;font-family:inherit;font-size:12px;font-weight:600;cursor:pointer;transition:all 0.2s}
+.add-goal-btn:hover{background:rgba(139,92,246,0.12);border-color:rgba(139,92,246,0.6)}
+
+/* === PROFILE === */
+.pf-hero{text-align:center;padding:14px 18px 10px}
+.pf-av{width:70px;height:70px;border-radius:50%;background:var(--g1);margin:0 auto 8px;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:800;color:#fff;border:3px solid rgba(139,92,246,0.4)}
+.pf-name{font-size:17px;font-weight:800;color:#fff}
+.pf-univ{font-size:10px;color:var(--text3);margin-top:3px}
+.pf-badge{display:inline-block;margin-top:7px;padding:3px 12px;border-radius:20px;background:rgba(139,92,246,0.2);border:1px solid rgba(139,92,246,0.3);font-size:9px;color:#C4B5FD;font-weight:600}
+
+.pf-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:0 14px 14px}
+.ps-card{text-align:center;background:rgba(255,255,255,0.05);border-radius:14px;padding:11px;border:1px solid rgba(255,255,255,0.07)}
+.ps-val{font-size:16px;font-weight:800;color:#fff}
+.ps-lbl{font-size:8px;color:var(--text3);margin-top:2px;font-weight:500}
+
+.menu-section{margin:0 14px}
+.menu-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:13px;margin-bottom:5px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);cursor:pointer;transition:all 0.15s}
+.menu-item:hover{background:rgba(255,255,255,0.08)}
+.mi-ico{width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
+.mi-txt{flex:1;font-size:12px;font-weight:600;color:#fff}
+.mi-arr{font-size:14px;color:var(--text3)}
+
+/* BOTTOM NAV */
+.bnav{position:absolute;bottom:0;left:0;right:0;background:rgba(13,8,28,0.95);border-top:1px solid rgba(255,255,255,0.08);display:flex;justify-content:space-around;padding:9px 0 14px;backdrop-filter:blur(20px)}
+.nav-i{display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;min-width:50px;transition:transform 0.15s}
+.nav-i:active{transform:scale(0.9)}
+.nav-ico{font-size:18px;filter:grayscale(1);opacity:0.4;transition:all 0.2s}
+.nav-lbl{font-size:8px;font-weight:600;color:var(--text3);transition:color 0.2s}
+.nav-i.on .nav-ico{filter:none;opacity:1}
+.nav-i.on .nav-lbl{color:#A78BFA}
+.nav-dot{width:4px;height:4px;border-radius:50%;background:#8B5CF6;margin:0 auto;display:none}
+.nav-i.on .nav-dot{display:block}
+</style>
+
+<div class="app">
+<div class="tab-row" id="tabRow">
+  <div class="tab on" data-s="dash">🏠 Dashboard</div>
+  <div class="tab" data-s="add">➕ Catat</div>
+  <div class="tab" data-s="insight">📊 Insight</div>
+  <div class="tab" data-s="saving">🎯 Tabungan</div>
+  <div class="tab" data-s="profile">👤 Profil</div>
+</div>
+
+<div class="phone-wrap">
+<div class="phone">
+
+<!-- DASHBOARD -->
+<div class="scr on" id="scr-dash">
+  <div class="sb"><b>09:41</b><span>WiFi ▲ 100%</span></div>
+  <div class="dash-header">
+    <div class="dh-left"><div class="hello">Halo, selamat pagi 🌤</div><div class="name">Rizky Pratama ✌</div></div>
+    <div class="notif-btn">🔔<div class="notif-dot"></div></div>
+  </div>
+  <div class="bal-card">
+    <div class="bc-top">
+      <div><div class="bc-label">Saldo Tersisa</div><div class="bc-amount">Rp 287.500</div><div class="bc-sub">dari Rp 1.200.000 bulan ini</div></div>
+      <div class="bc-eye">👁</div>
+    </div>
+    <div class="ai-chip">
+      <div class="ai-avatar">🤖</div>
+      <div class="ai-content"><div class="ai-tag">Smart AI</div><div class="ai-msg">Dompet kamu tipis banget 😢 — habis dalam <b>4 hari</b> kalau boros terus!</div></div>
+    </div>
+  </div>
+  <div class="pill-row">
+    <div class="pill"><div class="pill-ico">📤</div><div class="pill-val">Rp 45k</div><div class="pill-lbl">Keluar hari ini</div><div class="pill-badge pb-red">+12% avg</div></div>
+    <div class="pill"><div class="pill-ico">✨</div><div class="pill-val">Rp 32k</div><div class="pill-lbl">Hemat minggu ini</div><div class="pill-badge pb-green">Mantap! 🎉</div></div>
+    <div class="pill"><div class="pill-ico">🎯</div><div class="pill-val">81%</div><div class="pill-lbl">Target Bali</div><div class="pill-badge pb-blue">Hampir!</div></div>
+  </div>
+  <div class="quick-grid">
+    <div class="qg-item" onclick="go('add')"><div class="qg-ico qi1">➕</div><div class="qg-lbl">Catat</div></div>
+    <div class="qg-item" onclick="go('insight')"><div class="qg-ico qi2">📊</div><div class="qg-lbl">Insight</div></div>
+    <div class="qg-item" onclick="go('saving')"><div class="qg-ico qi3">🎯</div><div class="qg-lbl">Tabungan</div></div>
+    <div class="qg-item"><div class="qg-ico qi4">🔔</div><div class="qg-lbl">Notif</div></div>
+  </div>
+  <div class="sec-hd"><span class="sec-title">Transaksi Terakhir</span><span class="sec-link">Lihat semua →</span></div>
+  <div class="tx-list">
+    <div class="tx-item"><div class="tx-ico" style="background:linear-gradient(135deg,rgba(245,158,11,0.3),rgba(239,68,68,0.2))">🍗</div><div class="tx-info"><div class="tx-name">Ayam Geprek Pak Tono</div><div class="tx-meta">Makan · Barusan</div></div><div class="tx-amt amt-m">−Rp 15k</div></div>
+    <div class="tx-item"><div class="tx-ico" style="background:linear-gradient(135deg,rgba(6,182,212,0.3),rgba(99,102,241,0.2))">🚌</div><div class="tx-info"><div class="tx-name">GoRide ke Kampus</div><div class="tx-meta">Transport · 2 jam lalu</div></div><div class="tx-amt amt-m">−Rp 8k</div></div>
+    <div class="tx-item"><div class="tx-ico" style="background:linear-gradient(135deg,rgba(16,185,129,0.3),rgba(6,182,212,0.2))">💸</div><div class="tx-info"><div class="tx-name">Transfer dari Ayah</div><div class="tx-meta">Pemasukan · Kemarin</div></div><div class="tx-amt amt-p">+Rp 500k</div></div>
+    <div class="tx-item"><div class="tx-ico" style="background:linear-gradient(135deg,rgba(244,114,182,0.3),rgba(139,92,246,0.2))">☕</div><div class="tx-info"><div class="tx-name">Kopi Kenangan</div><div class="tx-meta">Minum · Kemarin</div></div><div class="tx-amt amt-m">−Rp 22k</div></div>
+  </div>
+</div>
+
+<!-- ADD EXPENSE -->
+<div class="scr" id="scr-add">
+  <div class="sb"><b>09:41</b><span>WiFi ▲ 100%</span></div>
+  <div class="add-header"><div class="back-btn" onclick="go('dash')">←</div><div class="add-title">Catat Pengeluaran</div></div>
+  <div class="amount-hero">
+    <div class="ah-label">Berapa yang kamu keluarin?</div>
+    <div class="ah-amount" id="amtDisplay">Rp 0<span class="ah-cursor"></span></div>
+  </div>
+  <div class="cat-scroll" id="catGrid">
+    <div class="cat-btn sel" data-c="Makan"><div class="cat-e">🍗</div><div class="cat-n">Makan</div></div>
+    <div class="cat-btn" data-c="Minum"><div class="cat-e">☕</div><div class="cat-n">Minum</div></div>
+    <div class="cat-btn" data-c="Transport"><div class="cat-e">🚌</div><div class="cat-n">Transport</div></div>
+    <div class="cat-btn" data-c="Belanja"><div class="cat-e">🛒</div><div class="cat-n">Belanja</div></div>
+    <div class="cat-btn" data-c="Hiburan"><div class="cat-e">🎮</div><div class="cat-n">Hiburan</div></div>
+    <div class="cat-btn" data-c="Kesehatan"><div class="cat-e">💊</div><div class="cat-n">Kesehatan</div></div>
+    <div class="cat-btn" data-c="Kos"><div class="cat-e">🏠</div><div class="cat-n">Kos</div></div>
+    <div class="cat-btn" data-c="Lain"><div class="cat-e">📦</div><div class="cat-n">Lainnya</div></div>
+  </div>
+  <div class="field-wrap"><div class="field-label">Keterangan</div><input class="custom-input" placeholder="Contoh: Geprek + es teh..."></div>
+  <div class="field-wrap"><div class="field-label">Tanggal & Waktu</div><input class="custom-input" value="Senin, 23 Mar 2026 · Sekarang"></div>
+  <button class="save-btn" onclick="showToast()">Simpan Pengeluaran ✓</button>
+  <div class="toast" id="toast">🎉 Tersimpan! Mantap, kamu makin disiplin hari ini~</div>
+</div>
+
+<!-- INSIGHT -->
+<div class="scr" id="scr-insight">
+  <div class="sb"><b>09:41</b><span>WiFi ▲ 100%</span></div>
+  <div class="ins-header"><div class="ins-title">Insight Keuangan 📊</div><div class="ins-sub">Maret 2026 — yuk analisa!</div></div>
+  <div class="period-toggle">
+    <div class="pt-btn on" onclick="setPeriod(this,'7D')">7 Hari</div>
+    <div class="pt-btn" onclick="setPeriod(this,'1B')">1 Bulan</div>
+    <div class="pt-btn" onclick="setPeriod(this,'3B')">3 Bulan</div>
+  </div>
+  <div class="chart-card">
+    <div class="cc-title">Pengeluaran Harian (Rp)</div>
+    <div class="bar-viz" id="barViz">
+      <div class="bv-col"><div class="bv-amt">28k</div><div class="bv-bar" style="height:30%;background:linear-gradient(180deg,rgba(139,92,246,0.4),rgba(139,92,246,0.1))"></div><div class="bv-lbl">Sen</div></div>
+      <div class="bv-col"><div class="bv-amt">52k</div><div class="bv-bar" style="height:55%;background:linear-gradient(180deg,#8B5CF6,rgba(139,92,246,0.3))"></div><div class="bv-lbl">Sel</div></div>
+      <div class="bv-col"><div class="bv-amt">24k</div><div class="bv-bar" style="height:25%;background:linear-gradient(180deg,rgba(139,92,246,0.4),rgba(139,92,246,0.1))"></div><div class="bv-lbl">Rab</div></div>
+      <div class="bv-col"><div class="bv-amt">76k</div><div class="bv-bar" style="height:80%;background:linear-gradient(180deg,#EF4444,rgba(239,68,68,0.3))"></div><div class="bv-lbl">Kam</div></div>
+      <div class="bv-col"><div class="bv-amt">57k</div><div class="bv-bar" style="height:60%;background:linear-gradient(180deg,#8B5CF6,rgba(139,92,246,0.3))"></div><div class="bv-lbl">Jum</div></div>
+      <div class="bv-col"><div class="bv-amt">33k</div><div class="bv-bar" style="height:35%;background:linear-gradient(180deg,rgba(139,92,246,0.4),rgba(139,92,246,0.1))"></div><div class="bv-lbl">Sab</div></div>
+      <div class="bv-col"><div class="bv-amt">45k</div><div class="bv-bar" style="height:47%;background:linear-gradient(180deg,#8B5CF6,rgba(139,92,246,0.3))"></div><div class="bv-lbl">Min</div></div>
+    </div>
+  </div>
+  <div class="sec-hd"><span class="sec-title">Kategori</span></div>
+  <div class="cat-breakdown">
+    <div class="cbd-item"><div class="cbd-ico" style="background:linear-gradient(135deg,rgba(245,158,11,0.3),rgba(239,68,68,0.2))">🍗</div><div class="cbd-name">Makan & Minum</div><div class="cbd-bar-wrap"><div class="cbd-fill" style="width:68%;background:linear-gradient(90deg,#F59E0B,#EF4444)"></div></div><div class="cbd-amt">Rp 204k</div></div>
+    <div class="cbd-item"><div class="cbd-ico" style="background:linear-gradient(135deg,rgba(6,182,212,0.3),rgba(99,102,241,0.2))">🚌</div><div class="cbd-name">Transport</div><div class="cbd-bar-wrap"><div class="cbd-fill" style="width:35%;background:linear-gradient(90deg,#06B6D4,#6366F1)"></div></div><div class="cbd-amt">Rp 105k</div></div>
+    <div class="cbd-item"><div class="cbd-ico" style="background:linear-gradient(135deg,rgba(16,185,129,0.3),rgba(6,182,212,0.2))">🛒</div><div class="cbd-name">Belanja</div><div class="cbd-bar-wrap"><div class="cbd-fill" style="width:22%;background:linear-gradient(90deg,#10B981,#06B6D4)"></div></div><div class="cbd-amt">Rp 66k</div></div>
+    <div class="cbd-item"><div class="cbd-ico" style="background:linear-gradient(135deg,rgba(244,114,182,0.3),rgba(139,92,246,0.2))">🎮</div><div class="cbd-name">Hiburan</div><div class="cbd-bar-wrap"><div class="cbd-fill" style="width:15%;background:linear-gradient(90deg,#F472B6,#8B5CF6)"></div></div><div class="cbd-amt">Rp 45k</div></div>
+  </div>
+  <div class="ai-insight-card">
+    <div class="aic-head"><div class="aic-ico">🤖</div><div class="aic-lbl">AI Insight</div></div>
+    <div class="aic-msg">Kamu ngabisin 68% budget buat makan. Coba masak sendiri 2x seminggu — bisa hemat <b style="color:#A78BFA">Rp 80–120k</b> lho! 💡</div>
+  </div>
+</div>
+
+<!-- SAVINGS -->
+<div class="scr" id="scr-saving">
+  <div class="sb"><b>09:41</b><span>WiFi ▲ 100%</span></div>
+  <div class="sav-header"><div class="ins-title">Target Tabungan 🎯</div><div class="ins-sub">Yuk capai impianmu!</div></div>
+  <div class="total-saved">
+    <div class="ts-lbl">Total Tersimpan</div>
+    <div class="ts-num">Rp 990.000</div>
+    <div class="ts-sub">dari 2 goal aktif ✨ Kamu keren banget!</div>
+  </div>
+  <div class="goal-card">
+    <div class="gc-top">
+      <div class="gc-left"><div class="gc-name">Laptop Gaming</div><div class="gc-amt">Rp 340k dari Rp 1.500k</div></div>
+      <div class="gc-emoji">💻</div>
+    </div>
+    <div class="gc-pbar"><div class="gc-fill" style="width:23%;background:linear-gradient(90deg,#8B5CF6,#6366F1)"></div></div>
+    <div class="gc-foot"><span class="gc-pct" style="color:#A78BFA">23% tercapai</span><span>Estimasi: 4 bulan lagi</span></div>
+  </div>
+  <div class="goal-card">
+    <div class="gc-top">
+      <div class="gc-left"><div class="gc-name">Liburan ke Bali 🔥</div><div class="gc-amt">Rp 650k dari Rp 800k</div></div>
+      <div class="gc-emoji">🏖️</div>
+    </div>
+    <div class="gc-pbar"><div class="gc-fill" style="width:81%;background:linear-gradient(90deg,#F472B6,#EC4899)"></div></div>
+    <div class="gc-foot"><span class="gc-pct" style="color:#F9A8D4">81% tercapai 🔥</span><span>Estimasi: 3 minggu lagi!</span></div>
+  </div>
+  <div class="motiv-card">
+    <div class="mc-ico">✨</div>
+    <div class="mc-txt">Tinggal Rp 150k lagi buat Bali! Skip kopi kekinian seminggu dan impianmu langsung kesampaian 🌴</div>
+  </div>
+  <button class="add-goal-btn">+ Tambah Target Baru</button>
+</div>
+
+<!-- PROFILE -->
+<div class="scr" id="scr-profile">
+  <div class="sb"><b>09:41</b><span>WiFi ▲ 100%</span></div>
+  <div class="pf-hero">
+    <div class="pf-av">RP</div>
+    <div class="pf-name">Rizky Pratama</div>
+    <div class="pf-univ">Universitas Brawijaya · Semester 5 🎓</div>
+    <div class="pf-badge">🔥 32 Hari Streak Hemat</div>
+  </div>
+  <div class="pf-stats">
+    <div class="ps-card"><div class="ps-val">32</div><div class="ps-lbl">Hari hemat</div></div>
+    <div class="ps-card"><div class="ps-val">2</div><div class="ps-lbl">Goal aktif</div></div>
+    <div class="ps-card"><div class="ps-val">Rp 990k</div><div class="ps-lbl">Tabungan</div></div>
+  </div>
+  <div class="sec-hd"><span class="sec-title">Pengaturan</span></div>
+  <div class="menu-section">
+    <div class="menu-item"><div class="mi-ico" style="background:linear-gradient(135deg,rgba(139,92,246,0.3),rgba(99,102,241,0.2))">👤</div><div class="mi-txt">Edit Profil</div><span class="mi-arr">›</span></div>
+    <div class="menu-item"><div class="mi-ico" style="background:linear-gradient(135deg,rgba(6,182,212,0.3),rgba(16,185,129,0.2))">💰</div><div class="mi-txt">Budget Bulanan</div><span class="mi-arr">›</span></div>
+    <div class="menu-item"><div class="mi-ico" style="background:linear-gradient(135deg,rgba(244,114,182,0.3),rgba(236,72,153,0.2))">🔔</div><div class="mi-txt">Notifikasi</div><span class="mi-arr">›</span></div>
+    <div class="menu-item"><div class="mi-ico" style="background:linear-gradient(135deg,rgba(245,158,11,0.3),rgba(239,68,68,0.2))">🎨</div><div class="mi-txt">Tampilan & Tema</div><span class="mi-arr">›</span></div>
+    <div class="menu-item"><div class="mi-ico" style="background:linear-gradient(135deg,rgba(16,185,129,0.3),rgba(6,182,212,0.2))">🔒</div><div class="mi-txt">Privasi & Keamanan</div><span class="mi-arr">›</span></div>
+  </div>
+</div>
+
+<!-- BOTTOM NAV -->
+<div class="bnav">
+  <div class="nav-i on" id="nv-dash" onclick="go('dash')"><div class="nav-ico">🏠</div><div class="nav-lbl">Home</div><div class="nav-dot"></div></div>
+  <div class="nav-i" id="nv-add" onclick="go('add')"><div class="nav-ico">➕</div><div class="nav-lbl">Catat</div><div class="nav-dot"></div></div>
+  <div class="nav-i" id="nv-insight" onclick="go('insight')"><div class="nav-ico">📊</div><div class="nav-lbl">Insight</div><div class="nav-dot"></div></div>
+  <div class="nav-i" id="nv-saving" onclick="go('saving')"><div class="nav-ico">🎯</div><div class="nav-lbl">Tabungan</div><div class="nav-dot"></div></div>
+  <div class="nav-i" id="nv-profile" onclick="go('profile')"><div class="nav-ico">👤</div><div class="nav-lbl">Profil</div><div class="nav-dot"></div></div>
+</div>
+</div>
+</div>
+</div>
+
+<script>
+function go(s){
+  document.querySelectorAll('.scr').forEach(e=>e.classList.remove('on'));
+  document.getElementById('scr-'+s).classList.add('on');
+  document.querySelectorAll('.nav-i').forEach(e=>e.classList.remove('on'));
+  const ni=document.getElementById('nv-'+s);if(ni)ni.classList.add('on');
+  document.querySelectorAll('.tab').forEach(e=>e.classList.toggle('on',e.dataset.s===s));
+}
+document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>go(t.dataset.s)));
+document.querySelectorAll('#catGrid .cat-btn').forEach(c=>c.addEventListener('click',()=>{
+  document.querySelectorAll('#catGrid .cat-btn').forEach(x=>x.classList.remove('sel'));
+  c.classList.add('sel');
+}));
+function showToast(){
+  const t=document.getElementById('toast');
+  t.style.display='block';
+  setTimeout(()=>t.style.display='none',3200);
+}
+function setPeriod(el){
+  document.querySelectorAll('.pt-btn').forEach(x=>x.classList.remove('on'));
+  el.classList.add('on');
+}
+</script>
